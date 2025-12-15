@@ -6,11 +6,15 @@ use App\Http\Controllers\TeachingSessionController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
