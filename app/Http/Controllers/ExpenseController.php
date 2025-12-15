@@ -46,7 +46,7 @@ class ExpenseController extends Controller
         
         $receiptPath = null;
         if ($request->hasFile('receipt')) {
-            $receiptPath = $request->file('receipt')->store('receipts', 'private');
+            $receiptPath = $request->file('receipt')->store('receipts');
         }
         
         Expense::create([
@@ -100,9 +100,9 @@ class ExpenseController extends Controller
         if ($request->hasFile('receipt')) {
             // Delete old receipt
             if ($expense->receipt_path) {
-                Storage::disk('private')->delete($expense->receipt_path);
+                Storage::delete($expense->receipt_path);
             }
-            $data['receipt_path'] = $request->file('receipt')->store('receipts', 'private');
+            $data['receipt_path'] = $request->file('receipt')->store('receipts');
         }
         
         $expense->update($data);
@@ -122,7 +122,7 @@ class ExpenseController extends Controller
         
         // Delete receipt file
         if ($expense->receipt_path) {
-            Storage::disk('private')->delete($expense->receipt_path);
+            Storage::delete($expense->receipt_path);
         }
         
         $expense->delete();
@@ -138,10 +138,10 @@ class ExpenseController extends Controller
     {
         $this->authorize('view', $expense);
         
-        if (!$expense->receipt_path || !Storage::disk('private')->exists($expense->receipt_path)) {
+        if (!$expense->receipt_path || !Storage::exists($expense->receipt_path)) {
             abort(404);
         }
         
-        return Storage::disk('private')->download($expense->receipt_path);
+        return Storage::download($expense->receipt_path);
     }
 }
