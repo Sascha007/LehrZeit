@@ -131,15 +131,23 @@ Visit `http://localhost:8000` in your browser.
 
 ## Deployment
 
-For production deployment:
+The application includes automated deployment workflows and Docker support for easy deployment to test and production environments.
 
-1. Set `APP_ENV=production` and `APP_DEBUG=false` in `.env`
-2. Configure a proper database (MySQL recommended)
-3. Set up HTTPS with SSL certificate
-4. Configure mail settings for notifications
-5. Set up proper file storage permissions
-6. Configure backup strategy
-7. Run `php artisan config:cache` and `php artisan route:cache`
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### Quick Deployment Options
+
+**Using Docker Compose (recommended for testing):**
+```bash
+docker-compose up -d
+```
+Access at `http://localhost:8080`
+
+**Using GitHub Actions:**
+The repository automatically builds and publishes Docker images to GitHub Container Registry on every push to `master`.
+
+**Manual deployment:**
+See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment instructions including Heroku, AWS, DigitalOcean, and manual server deployment.
 
 ## Testing
 
