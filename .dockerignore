@@ -1,0 +1,50 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+LICENSE
+
+# Development files
+.env.example
+.editorconfig
+.styleci.yml
+
+# Node modules
+node_modules
+npm-debug.log
+
+# Vendor directory (will be installed in container)
+vendor
+
+# Test files
+tests
+phpunit.xml
+.phpunit.result.cache
+
+# Storage logs and cache (will be created in container)
+storage/logs/*.log
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Build artifacts
+public/hot
+public/storage
+public/build
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# CI/CD files
+.github
