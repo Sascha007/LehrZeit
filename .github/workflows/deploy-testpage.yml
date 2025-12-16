@@ -29,7 +29,9 @@ jobs:
       - name: Install Composer dependencies
         env:
           COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
-        run: composer install --prefer-dist --no-interaction --no-progress --no-dev --optimize-autoloader
+        run: |
+          composer validate --strict
+          composer install --prefer-dist --no-interaction --no-progress --no-dev --no-scripts --optimize-autoloader
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

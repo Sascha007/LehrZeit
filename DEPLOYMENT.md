@@ -57,6 +57,9 @@ docker run -p 8080:80 ghcr.io/sascha007/lehrzeit:test
 The easiest way to run the application locally for testing:
 
 ```bash
+# Optional: Copy and customize environment variables
+cp .env.docker .env
+
 # Build and start all services
 docker-compose up -d
 
@@ -211,9 +214,11 @@ After deployment, verify the application is working:
    curl http://your-deployment-url/health
    ```
 
-3. **Test login functionality** with test credentials:
+3. **Test login functionality** with default credentials:
    - Admin: `admin@lehrzeit.com` / `password`
    - Lecturer: `lecturer@lehrzeit.com` / `password`
+   
+   **⚠️ SECURITY WARNING**: Change these default credentials immediately after deployment!
 
 4. **Verify database connectivity** by creating a test billing period
 

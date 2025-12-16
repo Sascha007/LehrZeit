@@ -12,7 +12,7 @@ if [ ! -f /var/www/html/.env ]; then
 fi
 
 # Generate application key if not set
-if ! grep -q "APP_KEY=base64:" /var/www/html/.env; then
+if ! grep -q '^APP_KEY=.\+' /var/www/html/.env; then
     echo "Generating application key..."
     php artisan key:generate --force
 fi
