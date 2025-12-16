@@ -115,7 +115,7 @@ server {
 }
 ```
 
-### 6. Configure Environment Variables
+### 6. Configure Environment Variables and Secrets
 
 The runner needs access to certain secrets. In GitHub:
 
@@ -125,7 +125,10 @@ The runner needs access to certain secrets. In GitHub:
    - `DB_DATABASE`: Database name
    - `DB_USERNAME`: Database username
    - `DB_PASSWORD`: Database password
+   - `COMPOSER_AUTH_TOKEN` (optional): Personal Access Token for private Composer packages
    - Any other environment-specific secrets
+
+**Note**: The workflow uses `GITHUB_TOKEN` by default for Composer authentication. For private repositories or to avoid rate limiting, create a Personal Access Token with `repo` scope and add it as `COMPOSER_AUTH_TOKEN` secret, then update the workflow to use it.
 
 ### 7. Database Setup
 
@@ -167,11 +170,16 @@ The test deployment workflow performs the following:
 4. Installs NPM dependencies
 5. Builds frontend assets
 6. Sets up environment configuration
-7. Runs database migrations
+7. Runs database migrations (with --force flag for automation)
 8. Clears and caches Laravel configuration
-9. Sets proper file permissions
+9. Sets proper file permissions (775 for directories, 664 for files)
 10. Runs the test suite
 11. Notifies on successful deployment
+
+**Important Notes**:
+- Database migrations run automatically with the `--force` flag. Ensure your migrations are tested before pushing to deployment branches.
+- For production-like environments, consider implementing migration rollback strategies or database backups before deployment.
+- File permissions are set to 775 for directories and 664 for files in storage and cache directories for better security.
 
 ## Troubleshooting
 
