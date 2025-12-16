@@ -141,6 +141,18 @@ For production deployment:
 6. Configure backup strategy
 7. Run `php artisan config:cache` and `php artisan route:cache`
 
+### Test Deployment with Self-Hosted Runner
+
+This project includes a GitHub Actions workflow for automated test deployments using a self-hosted runner. See [RUNNER_SETUP.md](RUNNER_SETUP.md) for detailed instructions on:
+
+- Setting up a self-hosted GitHub Actions runner
+- Configuring the test environment
+- Triggering test deployments
+
+The test deployment workflow can be triggered:
+- Automatically on push to `develop` or `staging` branches
+- Manually via GitHub Actions workflow dispatch
+
 ## Testing
 
 Run the test suite:

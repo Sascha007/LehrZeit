@@ -1,0 +1,71 @@
+name: Test Deployment
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+      - staging
+
+permissions:
+  contents: read
+
+jobs:
+  test-deployment:
+    runs-on: self-hosted
+
+    name: Deploy to Test Environment
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql
+          coverage: none
+
+      - name: Install Composer dependencies
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
+        run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Setup environment file
+        run: |
+          if [ ! -f .env ]; then
+            cp .env.example .env
+            php artisan key:generate
+          fi
+
+      - name: Run database migrations
+        run: php artisan migrate --force
+
+      - name: Clear and cache configuration
+        run: |
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan route:clear
+          php artisan view:clear
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+      - name: Set proper permissions
+        run: |
+          chmod -R 755 storage bootstrap/cache || true
+          sudo chown -R www-data:www-data storage bootstrap/cache || true
+
+      - name: Run tests
+        run: vendor/bin/phpunit
+
+      - name: Deployment notification
+        if: success()
+        run: echo "Test deployment completed successfully"
