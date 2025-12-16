@@ -35,6 +35,8 @@ jobs:
           coverage: none
 
       - name: Install Composer dependencies
+        env:
+          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{ secrets.GITHUB_TOKEN }}"}}'
         run: composer install --prefer-dist --no-interaction --no-progress
 
       - name: Install NPM dependencies
