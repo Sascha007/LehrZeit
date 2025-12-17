@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 
 class TeachingSession extends Model
 {
-    use Auditable;
+    use Auditable, HasFactory;
     protected $fillable = [
         'billing_period_id',
         'user_id',
