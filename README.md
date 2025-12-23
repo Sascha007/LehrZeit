@@ -163,9 +163,55 @@ The test deployment workflow can be triggered:
 
 ## Testing
 
-Run the test suite:
+The application includes a comprehensive feature test suite covering all core functionality.
+
+### Running Tests
+
+Run the entire test suite:
 ```bash
 php artisan test
+```
+
+Run specific test suites:
+```bash
+php artisan test --filter=BillingPeriodTest
+php artisan test --filter=TeachingSessionTest
+php artisan test --filter=ExpenseTest
+php artisan test --filter=AdminWorkflowTest
+php artisan test --filter=ExportTest
+```
+
+### Test Coverage
+
+The test framework includes 67 tests (156 assertions) covering:
+
+- **Billing Period Management**: Creation, viewing, submission, deletion, and state transitions
+- **Teaching Sessions**: CRUD operations, automatic hour calculation, and permissions
+- **Expense Management**: CRUD operations, receipt upload, and file handling
+- **Admin Workflow**: Approval, reopening, and export marking
+- **Export Functionality**: CSV and XLSX export with data validation
+- **Role-Based Permissions**: Lecturer and admin access control
+- **Audit Logging**: Automatic tracking of all changes
+
+### Database Factories
+
+Test factories are available for all main models:
+
+```php
+// Create test users
+User::factory()->lecturer()->create();
+User::factory()->admin()->create();
+
+// Create billing periods in different states
+BillingPeriod::factory()->create(); // OPEN
+BillingPeriod::factory()->submitted()->create();
+BillingPeriod::factory()->approved()->create();
+BillingPeriod::factory()->exported()->create();
+
+// Create teaching sessions and expenses
+TeachingSession::factory()->create();
+Expense::factory()->create();
+Expense::factory()->withReceipt()->create();
 ```
 
 ## License

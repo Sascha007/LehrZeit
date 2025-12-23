@@ -36,7 +36,7 @@ class TeachingSessionController extends Controller
             'billing_period_id' => 'required|exists:billing_periods,id',
             'date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'end_time' => 'required|date_format:H:i',
             'subject' => 'required|string|max:255',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
@@ -48,7 +48,7 @@ class TeachingSessionController extends Controller
         // Calculate hours
         $start = Carbon::createFromFormat('H:i', $validated['start_time']);
         $end = Carbon::createFromFormat('H:i', $validated['end_time']);
-        $hours = $end->diffInMinutes($start) / 60;
+        $hours = $start->diffInMinutes($end) / 60;
         
         TeachingSession::create([
             'billing_period_id' => $validated['billing_period_id'],
@@ -88,7 +88,7 @@ class TeachingSessionController extends Controller
         $validated = $request->validate([
             'date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'end_time' => 'required|date_format:H:i',
             'subject' => 'required|string|max:255',
             'description' => 'nullable|string',
             'location' => 'nullable|string|max:255',
@@ -97,7 +97,7 @@ class TeachingSessionController extends Controller
         // Calculate hours
         $start = Carbon::createFromFormat('H:i', $validated['start_time']);
         $end = Carbon::createFromFormat('H:i', $validated['end_time']);
-        $hours = $end->diffInMinutes($start) / 60;
+        $hours = $start->diffInMinutes($end) / 60;
         
         $teachingSession->update([
             'date' => $validated['date'],
