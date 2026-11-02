@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install NPM dependencies
@@ -64,6 +64,7 @@ jobs:
         run: |
           mkdir -p deployment
           tar -czf deployment/lehrzeit-app.tar.gz \
+            --exclude=./deployment \
             --exclude=node_modules \
             --exclude=.git \
             --exclude=tests \
