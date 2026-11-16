@@ -34,7 +34,7 @@ jobs:
           composer install --prefer-dist --no-interaction --no-progress --no-dev --no-scripts --optimize-autoloader
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
           cache: 'npm'
