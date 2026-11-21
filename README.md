@@ -14,7 +14,7 @@ GDPR-compliant web app for lecturers to record teaching hours and expenses. Data
 
 ## Requirements
 
-- PHP 8.2 or higher
+- PHP 8.4 or higher
 - Composer
 - Node.js and NPM
 - MySQL 8.0 or higher (or SQLite for development)
