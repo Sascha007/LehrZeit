@@ -6,7 +6,7 @@ This document describes how to set up a self-hosted GitHub Actions runner for te
 
 - A server or machine to act as the runner (Linux, macOS, or Windows)
 - Administrator access to the GitHub repository
-- PHP 8.2 or higher installed on the runner machine
+- PHP 8.4 or higher installed on the runner machine
 - Node.js and NPM installed on the runner machine
 - Composer installed on the runner machine
 - Web server (Apache/Nginx) configured for Laravel
@@ -47,7 +47,7 @@ sudo ./svc.sh start
 Ensure the following are installed on the runner machine:
 
 ```bash
-# PHP 8.2 or higher
+# PHP 8.4 or higher
 php -v
 
 # Composer
@@ -107,7 +107,7 @@ server {
     }
 
     location ~ \.php$ {
-        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
